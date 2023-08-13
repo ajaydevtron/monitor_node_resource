@@ -34,7 +34,7 @@ def get_labeled_nodes():
 def add_taint_to_nodes(node):
     # print(node)
     # adding the taint and label to the nodes 
-    add_label_command = f"kubectl label nodes {node} utilizationhigh=true"
+    add_label_command = f"kubectl label nodes {node} utilizationhigh=true --overwrite"
     label_process = subprocess.Popen(add_label_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = label_process.communicate()
     taint_command = f"kubectl taint nodes {node} utilizationhigh=true:NoSchedule --overwrite"
@@ -110,7 +110,7 @@ def main():
     else:
         print("\n ******* No nodes with high CPU or Memory Utilization found. ******** \n")
     print("\n ****** Waiting for 2 min to recheck if any node which had utilization high , does this decrease under 70 % ? if yes we will remove taint and label ")
-    time.sleep(10)
+    time.sleep(120)
     labeled_nodes = get_labeled_nodes()
     if labeled_nodes:
         print("\n ******* Nodes with label utilizationhigh=true: *********")
