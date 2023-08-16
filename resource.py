@@ -41,7 +41,7 @@ def low_resoucres_limit_nodes(remove_taint_limit_threshold):
         stdout_memory=stdout_memory.decode("utf-8")
         stdout_cpu=stdout_cpu.decode("utf-8")
         if memory_process.returncode == 0 and cpu_process.returncode == 0 :
-            print(f"\n {node} have memory limit: {stdout_memory} and cpu limit : {stdout_cpu} in %")
+            print(f"\n {node} have resources(in percentage) memory limit  : {stdout_memory} and cpu limit : {stdout_cpu} ")
             if int(stdout_cpu)<remove_taint_limit_threshold and int(stdout_memory)<remove_taint_limit_threshold: 
                 remove_taint_label(node)
         else:
@@ -84,7 +84,7 @@ def check_limit_resources_nodes(add_taint_limit_threshold):
             stdout_memory=stdout_memory.decode("utf-8")
             stdout_cpu=stdout_cpu.decode("utf-8")
             if memory_process.returncode == 0 and cpu_process.returncode == 0 :
-                print(f"\n {node} have memory limit: {stdout_memory} and cpu limit : {stdout_cpu} in %")
+                print(f"\n {node} have resources(in percentage) memory limit : {stdout_memory} and cpu limit : {stdout_cpu}  ")
                 if int(stdout_cpu)>=add_taint_limit_threshold or int(stdout_memory)>=add_taint_limit_threshold: 
                     add_taint_label_nodes(node)
             else:
